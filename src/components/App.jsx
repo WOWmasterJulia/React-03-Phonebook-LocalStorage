@@ -17,7 +17,7 @@ export class App extends Component {
       this.setState({ contacts: this.state.contacts })
     }
   };
-// Фильтр поиска кконтакта по имени
+// Фильтр поиска контакта по имени
   findChange = evt => {
     this.setState({ filter: evt.currentTarget.value })
   };
@@ -26,6 +26,21 @@ export class App extends Component {
     const idContact = this.state.contacts.findIndex(contact => contact.id === id);
     this.setState({ contact: this.state.contacts.splice(idContact, 1) })
   };
+
+// Считывание из Локал
+componentDidMount() {
+  const contactsData = JSON.parse(localStorage.getItem('contacts'));
+  if (contactsData) {
+    this.setState({ contacts: contactsData });
+  }
+}
+// Запись в Локал
+  componentDidUpdate(_, prevState) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
+
+
+
 
   render() {
     const { contacts, filter } = this.state;
