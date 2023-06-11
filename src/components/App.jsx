@@ -3,7 +3,7 @@ import { ContactForm } from "./ContactForm/ContactForm";
 import { ContactList } from './ContactList/ContactList';
 import { ContactFind } from './ContactFind/ContactFind';
 
-
+const LOCAL_KEY = 'contacts';
 export class App extends Component {
   state = {
     contacts: [],
@@ -30,15 +30,15 @@ export class App extends Component {
 
 // Запись в Локал
 componentDidMount() {
-  const contacts = JSON.parse(localStorage.getItem('contacts'));
+  const contacts = JSON.parse(localStorage.getItem(LOCAL_KEY));
   if (contacts) {
     this.setState({ contacts: contacts });
   }
 }
 // Обновление в Локал
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     // if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(this.state.contacts));
     }
   // }
 
