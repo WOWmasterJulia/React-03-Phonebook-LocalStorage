@@ -3,6 +3,7 @@ import { ContactForm } from "./ContactForm/ContactForm";
 import { ContactList } from './ContactList/ContactList';
 import { ContactFind } from './ContactFind/ContactFind';
 
+
 export class App extends Component {
   state = {
     contacts: [],
@@ -27,16 +28,18 @@ export class App extends Component {
     this.setState({ contact: this.state.contacts.splice(idContact, 1) })
   };
 
-// Считывание из Локал
+// Запись в Локал
 componentDidMount() {
-  const contactsData = JSON.parse(localStorage.getItem('contacts'));
-  if (contactsData) {
-    this.setState({ contacts: contactsData });
+  const contacts = JSON.parse(localStorage.getItem('contacts'));
+  if (contacts) {
+    this.setState({ contacts: contacts });
   }
 }
-// Запись в Локал
-  componentDidUpdate(_, prevState) {
+// Обновление в Локал
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
   }
 
 
